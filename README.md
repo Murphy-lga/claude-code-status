@@ -26,6 +26,14 @@
 - **PowerShell 5+**（Windows 自带）
 - **Node.js**（用于 `write-status.js` hook 脚本）
 
+## 兼容性说明
+
+> **本项目仅支持 Claude Code CLI。** 如果你使用的是 VS Code 中的 "Claude Code for VS Code" 扩展，本项目不会生效。
+>
+> **原因：** CLI 和 VS Code 扩展的 hooks 配置是独立的。CLI 读取 `%USERPROFILE%\.claude\settings.json`，而扩展读取 VS Code `settings.json` 中的 `"claudeCode.hooks"`，两者互不识别。扩展中配置的 CLI hooks 不会被触发，因此 `write-status.js` 不会执行。
+>
+> 如果你同时使用两种入口，需要分别在各自的配置文件中添加 hooks。
+
 ## 快速开始
 
 > **安装前**：请先下载本项目。在 GitHub 页面点击 **Code → Download ZIP**，解压后进入解压后的目录执行后续步骤。无需 `git clone`，下载 ZIP 即可。
