@@ -26,6 +26,14 @@ A minimalist, always-on-top HUD bar that shows Claude Code's real-time status �
 - **PowerShell 5+** (bundled with Windows)
 - **Node.js** (for the `write-status.js` hook script)
 
+## Compatibility
+
+> **This project only supports Claude Code CLI.** It does not work with the "Claude Code for VS Code" extension.
+>
+> **Why:** CLI and VS Code extension use separate hook configurations. CLI reads hooks from `%USERPROFILE%\.claude\settings.json`, while the extension reads hooks from `"claudeCode.hooks"` in VS Code's `settings.json` — the two are completely independent. Hooks configured in one are not picked up by the other, so `write-status.js` will never fire from the extension.
+>
+> If you use both, you need to add hooks separately in each configuration file.
+
 ## Quick Start
 
 > **Before installing**: Download this project first. Click **Code → Download ZIP** on the GitHub page, extract it, and open the extracted folder. No `git clone` needed.
