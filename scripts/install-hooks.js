@@ -13,36 +13,66 @@ if (!settingsPath) {
   process.exit(1);
 }
 
+// Use the running Node.js executable path
+const NODE_PATH = process.execPath.replace(/\\/g, '\\\\');
 const SCRIPT_DIR = '%USERPROFILE%\\.claude\\scripts';
 
 const hooks = {
   SessionStart: {
-    match: /./,
-    run: `node "${SCRIPT_DIR}\\write-status.js" start`,
+    matcher: '',
+    hooks: [{
+      type: 'command',
+      command: `"${NODE_PATH}" "${SCRIPT_DIR}\\write-status.js" start`,
+      async: true,
+    }],
   },
   UserPromptSubmit: {
-    match: /./,
-    run: `node "${SCRIPT_DIR}\\write-status.js" thinking`,
+    matcher: '',
+    hooks: [{
+      type: 'command',
+      command: `"${NODE_PATH}" "${SCRIPT_DIR}\\write-status.js" thinking`,
+      async: true,
+    }],
   },
   PreToolUse: {
-    match: /./,
-    run: `node "${SCRIPT_DIR}\\write-status.js" executing`,
+    matcher: '',
+    hooks: [{
+      type: 'command',
+      command: `"${NODE_PATH}" "${SCRIPT_DIR}\\write-status.js" executing`,
+      async: true,
+    }],
   },
   PostToolUse: {
-    match: /./,
-    run: `node "${SCRIPT_DIR}\\write-status.js" thinking`,
+    matcher: '',
+    hooks: [{
+      type: 'command',
+      command: `"${NODE_PATH}" "${SCRIPT_DIR}\\write-status.js" thinking`,
+      async: true,
+    }],
   },
   Notification: {
-    match: /./,
-    run: `node "${SCRIPT_DIR}\\write-status.js" confirm`,
+    matcher: '',
+    hooks: [{
+      type: 'command',
+      command: `"${NODE_PATH}" "${SCRIPT_DIR}\\write-status.js" confirm`,
+      async: true,
+    }],
   },
   Stop: {
-    match: /./,
-    run: `node "${SCRIPT_DIR}\\write-status.js" done`,
+    matcher: '',
+    hooks: [{
+      type: 'command',
+      command: `"${NODE_PATH}" "${SCRIPT_DIR}\\write-status.js" done`,
+      async: true,
+    }],
   },
   SessionEnd: {
-    match: /./,
-    run: `node "${SCRIPT_DIR}\\write-status.js" done`,
+    matcher: '',
+    hooks: [{
+      type: 'command',
+      command: `"${NODE_PATH}" "${SCRIPT_DIR}\\write-status.js" done`,
+      async: true,
+    }],
   },
 };
 
@@ -54,8 +84,11 @@ function expandEnv(p) {
 const expandedHooks = {};
 for (const [key, value] of Object.entries(hooks)) {
   expandedHooks[key] = {
-    match: value.match,
-    run: expandEnv(value.run),
+    matcher: value.matcher,
+    hooks: value.hooks.map(h => ({
+      ...h,
+      command: expandEnv(h.command),
+    })),
   };
 }
 
@@ -86,7 +119,11 @@ for (const [hookName, hookConfig] of Object.entries(expandedHooks)) {
   }
   // Check if our hook entry already exists (by checking for write-status.js)
   const existing = settings.hooks[hookName];
-  const ourIndex = existing.findIndex(h => h.run && h.run.includes('write-status.js'));
+  const ourIndex = existing.findIndex(h =>
+    h.matcher !== undefined &&
+    h.hooks &&
+    h.hooks.some(hk => hk.command && hk.command.includes('write-status.js'))
+  );
   if (ourIndex >= 0) {
     settings.hooks[hookName][ourIndex] = hookConfig;
     console.log(`  Updating hook: ${hookName}`);
