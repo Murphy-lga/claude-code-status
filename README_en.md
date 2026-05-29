@@ -6,7 +6,7 @@ A minimalist, always-on-top HUD bar that shows Claude Code's real-time status �
 ![Platform](https://img.shields.io/badge/platform-windows-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-[简体中文](README_zh-CN.md) | [English](README.md)
+[English](README_en.md) | [简体中文](README.md)
 
 ## Preview
 
