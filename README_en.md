@@ -128,6 +128,16 @@ status-monitor.ps1 ──poll every 500ms ──read─────────�
 - **Dark background** — `#1e1e2e` Catppuccin-inspired dark theme
 - **Low overhead** — polls every 500ms, no CPU spike
 
+## Buy Me a Coffee
+If this project helps you, feel free to support — every bit keeps me going ❤️
+
+<table>
+  <tr>
+    <td align="center"><img width="360" alt="WeChat" src="https://github.com/user-attachments/assets/819422ae-0fcf-428d-8557-f10966feec17" /><br/>WeChat</td>
+    <td align="center"><img width="360" alt="Alipay" src="https://github.com/user-attachments/assets/0ab51315-4188-4c22-b730-c366eff88233" /><br/>Alipay</td>
+  </tr>
+</table>
+
 ## Uninstall
 
 ### Pause: close the monitor window
