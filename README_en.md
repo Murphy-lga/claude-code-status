@@ -133,8 +133,8 @@ If this project helps you, feel free to support — every bit keeps me going ❤
 
 <table>
   <tr>
-    <td align="center"><img width="360" alt="WeChat" src="https://github.com/user-attachments/assets/819422ae-0fcf-428d-8557-f10966feec17" /><br/>WeChat</td>
-    <td align="center"><img width="360" alt="Alipay" src="https://github.com/user-attachments/assets/0ab51315-4188-4c22-b730-c366eff88233" /><br/>Alipay</td>
+    <td align="center"><img width="240" alt="WeChat" src="https://github.com/user-attachments/assets/819422ae-0fcf-428d-8557-f10966feec17" /><br/>WeChat</td>
+    <td align="center"><img width="240" alt="Alipay" src="https://github.com/user-attachments/assets/0ab51315-4188-4c22-b730-c366eff88233" /><br/>Alipay</td>
   </tr>
 </table>
 
