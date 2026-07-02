@@ -22,7 +22,7 @@ $form = New-Object System.Windows.Forms.Form
 $form.Text = ""
 $form.Size = New-Object System.Drawing.Size(180, 44)
 $form.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::None
-$form.ShowInTaskbar = $true
+$form.ShowInTaskbar = $false
 $form.TopMost = $true
 $form.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#1e1e2e")
 $form.StartPosition = [System.Windows.Forms.FormStartPosition]::Manual
@@ -31,8 +31,8 @@ $form.DoubleBuffered = $true
 # Position at bottom-right of screen
 $screen = [System.Windows.Forms.Screen]::PrimaryScreen.WorkingArea
 $form.Location = New-Object System.Drawing.Point(
-    [Math]::Max(0, $screen.Right - 200),
-    [Math]::Max(0, $screen.Bottom - 64)
+    [Math]::Max(0, $screen.Right - $form.Width - 20),
+    [Math]::Max(0, $screen.Bottom - $form.Height - 20)
 )
 
 # Capsule shape — full semicircle corners
@@ -97,8 +97,6 @@ $btnClose.Add_MouseDown({
 })
 
 # State
-$script:lastStatus = $null
-$script:lastTimestamp = 0
 $script:isActive = $false
 $script:currentStatus = $null
 
@@ -127,9 +125,6 @@ $timerPulse.Add_Tick({
     }
     $dot.Size = New-Object System.Drawing.Size(16, 16)
     $dot.Location = New-Object System.Drawing.Point(14, 14)
-    $dotPath = New-Object System.Drawing.Drawing2D.GraphicsPath
-    $dotPath.AddEllipse(0, 0, 16, 16)
-    $dot.Region = New-Object System.Drawing.Region($dotPath)
 })
 $timerPulse.Start()
 
@@ -164,7 +159,6 @@ $timerMain.Add_Tick({
                         $script:isActive = $false
                     }
 
-                    $script:lastTimestamp = $data.timestamp
                 }
             }
         } else {

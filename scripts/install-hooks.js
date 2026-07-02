@@ -13,8 +13,7 @@ if (!settingsPath) {
   process.exit(1);
 }
 
-// Use the running Node.js executable path
-const NODE_PATH = process.execPath.replace(/\\/g, '\\\\');
+// Script directory (USERPROFILE expanded at install time)
 const SCRIPT_DIR = '%USERPROFILE%\\.claude\\scripts';
 
 const hooks = {
@@ -22,7 +21,7 @@ const hooks = {
     matcher: '',
     hooks: [{
       type: 'command',
-      command: `"${NODE_PATH}" "${SCRIPT_DIR}\\write-status.js" start`,
+      command: `node "${SCRIPT_DIR}\\write-status.js" start`,
       async: true,
     }],
   },
@@ -30,7 +29,7 @@ const hooks = {
     matcher: '',
     hooks: [{
       type: 'command',
-      command: `"${NODE_PATH}" "${SCRIPT_DIR}\\write-status.js" thinking`,
+      command: `node "${SCRIPT_DIR}\\write-status.js" thinking`,
       async: true,
     }],
   },
@@ -38,7 +37,7 @@ const hooks = {
     matcher: '',
     hooks: [{
       type: 'command',
-      command: `"${NODE_PATH}" "${SCRIPT_DIR}\\write-status.js" executing`,
+      command: `node "${SCRIPT_DIR}\\write-status.js" executing`,
       async: true,
     }],
   },
@@ -46,7 +45,23 @@ const hooks = {
     matcher: '',
     hooks: [{
       type: 'command',
-      command: `"${NODE_PATH}" "${SCRIPT_DIR}\\write-status.js" thinking`,
+      command: `node "${SCRIPT_DIR}\\write-status.js" thinking`,
+      async: true,
+    }],
+  },
+  PostToolUseFailure: {
+    matcher: '',
+    hooks: [{
+      type: 'command',
+      command: `node "${SCRIPT_DIR}\\write-status.js" error`,
+      async: true,
+    }],
+  },
+  StopFailure: {
+    matcher: '',
+    hooks: [{
+      type: 'command',
+      command: `node "${SCRIPT_DIR}\\write-status.js" error`,
       async: true,
     }],
   },
@@ -54,7 +69,7 @@ const hooks = {
     matcher: '',
     hooks: [{
       type: 'command',
-      command: `"${NODE_PATH}" "${SCRIPT_DIR}\\write-status.js" confirm`,
+      command: `node "${SCRIPT_DIR}\\write-status.js" confirm`,
       async: true,
     }],
   },
@@ -62,7 +77,7 @@ const hooks = {
     matcher: '',
     hooks: [{
       type: 'command',
-      command: `"${NODE_PATH}" "${SCRIPT_DIR}\\write-status.js" done`,
+      command: `node "${SCRIPT_DIR}\\write-status.js" done`,
       async: true,
     }],
   },
@@ -70,7 +85,7 @@ const hooks = {
     matcher: '',
     hooks: [{
       type: 'command',
-      command: `"${NODE_PATH}" "${SCRIPT_DIR}\\write-status.js" done`,
+      command: `node "${SCRIPT_DIR}\\write-status.js" done`,
       async: true,
     }],
   },

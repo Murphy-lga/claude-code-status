@@ -10,6 +10,19 @@ A minimalist, always-on-top HUD bar that shows Claude Code's real-time status �
 
 ## Preview
 
+<table>
+  <tr>
+    <td align="center"><img width="180" src="assets/idle.png" /><br/>IDLE</td>
+    <td align="center"><img width="180" src="assets/thinking.png" /><br/>THINKING</td>
+    <td align="center"><img width="180" src="assets/executing.png" /><br/>EXECUTING</td>
+  </tr>
+  <tr>
+    <td align="center"><img width="180" src="assets/waiting.png" /><br/>WAITING</td>
+    <td align="center"><img width="180" src="assets/done.png" /><br/>DONE</td>
+    <td align="center"><img width="180" src="assets/error.png" /><br/>ERROR</td>
+  </tr>
+</table>
+
 | State | Color | Meaning |
 |-------|-------|---------|
 | IDLE | Gray | Just started, waiting for input |
@@ -40,7 +53,7 @@ A minimalist, always-on-top HUD bar that shows Claude Code's real-time status �
 
 ### Option A: One-click install
 
-Run `install.bat` and follow the prompts. It will:
+Run `install.bat` and it will automatically:
 1. Copy hook scripts to `%USERPROFILE%\.claude\scripts\`
 2. Configure Claude Code hooks in `%USERPROFILE%\.claude\settings.json`
 3. Launch the monitor window
@@ -68,8 +81,10 @@ Create the file if it doesn't exist; merge with existing hooks if present. Repla
     "UserPromptSubmit": [{ "matcher": "", "hooks": [{ "type": "command", "command": "node \"C:\\Users\\YourName\\.claude\\scripts\\write-status.js\" thinking", "async": true }] }],
     "PreToolUse":       [{ "matcher": "", "hooks": [{ "type": "command", "command": "node \"C:\\Users\\YourName\\.claude\\scripts\\write-status.js\" executing","async": true }] }],
     "PostToolUse":      [{ "matcher": "", "hooks": [{ "type": "command", "command": "node \"C:\\Users\\YourName\\.claude\\scripts\\write-status.js\" thinking", "async": true }] }],
+    "PostToolUseFailure": [{ "matcher": "", "hooks": [{ "type": "command", "command": "node \"C:\\Users\\YourName\\.claude\\scripts\\write-status.js\" error", "async": true }] }],
     "Notification":     [{ "matcher": "", "hooks": [{ "type": "command", "command": "node \"C:\\Users\\YourName\\.claude\\scripts\\write-status.js\" confirm", "async": true }] }],
     "Stop":             [{ "matcher": "", "hooks": [{ "type": "command", "command": "node \"C:\\Users\\YourName\\.claude\\scripts\\write-status.js\" done",     "async": true }] }],
+    "StopFailure":       [{ "matcher": "", "hooks": [{ "type": "command", "command": "node \"C:\\Users\\YourName\\.claude\\scripts\\write-status.js\" error",    "async": true }] }],
     "SessionEnd":       [{ "matcher": "", "hooks": [{ "type": "command", "command": "node \"C:\\Users\\YourName\\.claude\\scripts\\write-status.js\" done",     "async": true }] }]
   }
 }
@@ -115,8 +130,10 @@ status-monitor.ps1 ──poll every 500ms ──read─────────�
 | UserPromptSubmit | User sends a message | `thinking` |
 | PreToolUse | Claude calls a tool | `executing` |
 | PostToolUse | Tool execution complete | `thinking` |
+| PostToolUseFailure | Tool call fails | `error` |
 | Notification | Claude waits for confirmation | `confirm` |
 | Stop | Claude finishes a reply | `done` |
+| StopFailure | API error occurs | `error` |
 | SessionEnd | Session exits | `done` |
 
 ## Window Features
@@ -125,7 +142,7 @@ status-monitor.ps1 ──poll every 500ms ──read─────────�
 - **Always on top** — stays above all other windows
 - **Draggable** — grab anywhere to reposition
 - **Pulse animation** — status dot breathes during active states
-- **Dark background** — `#1e1e2e` Catppuccin-inspired dark theme
+- **Dark background** — `#1e1e2e` dark theme, high contrast with status colors
 - **Low overhead** — polls every 500ms, no CPU spike
 
 ## Buy Me a Coffee

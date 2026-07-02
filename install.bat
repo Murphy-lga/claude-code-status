@@ -6,6 +6,15 @@ echo  Claude Code Status Monitor - Installer
 echo ==========================================
 echo.
 
+:: Check Node.js
+where node >nul 2>&1
+if !errorlevel! neq 0 (
+    echo ERROR: Node.js is required but not found on PATH.
+    echo Please install Node.js from https://nodejs.org/ and try again.
+    pause
+    exit /b 1
+)
+
 set "TARGET=%USERPROFILE%\.claude\scripts"
 set "SCRIPTS_DIR=%~dp0scripts"
 

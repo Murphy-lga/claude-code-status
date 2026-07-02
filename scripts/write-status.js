@@ -21,7 +21,7 @@ const statusLabels = {
   'thinking':  { display: 'THINKING',  color: '#f59e0b' },
   'executing': { display: 'EXECUTING', color: '#3b82f6' },
   'confirm':   { display: 'WAITING',   color: '#a855f7' },
-  'waiting':   { display: 'THINKING',  color: '#f59e0b' },
+  'waiting':   { display: 'WAITING',   color: '#a855f7' },
   'done':      { display: 'DONE',      color: '#22c55e' },
   'error':     { display: 'ERROR',     color: '#ef4444' },
 };
@@ -39,10 +39,13 @@ const data = {
 try {
   fs.writeFileSync(STATUS_FILE, JSON.stringify(data, null, 2));
 } catch (err) {
+  console.error('write-status: first write attempt failed:', err.message);
+  // Retry once in case of transient file lock
   setTimeout(() => {
     try {
       fs.writeFileSync(STATUS_FILE, JSON.stringify(data, null, 2));
     } catch (e2) {
+      console.error('write-status: retry also failed:', e2.message);
       process.exit(1);
     }
   }, 50);
