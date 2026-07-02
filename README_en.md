@@ -1,6 +1,6 @@
 # Claude Code Status Monitor
 
-A minimalist, always-on-top HUD bar that shows Claude Code's real-time status — idle, thinking, executing, waiting, or done. No need to watch the terminal.
+A minimalist, always-on-top HUD bar that shows Claude Code's real-time status — idle, thinking, executing, waiting, done, or error. No need to watch the terminal.
 
 ![Status](https://img.shields.io/badge/status-active-success)
 ![Platform](https://img.shields.io/badge/platform-windows-blue)

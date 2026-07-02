@@ -1,6 +1,6 @@
 # Claude Code 状态监视器
 
-一个始终置顶的小窗口，实时显示 Claude Code 的当前状态（空闲、思考中、执行中、等待确认、完成），无需看命令行就能一眼掌握进度。
+一个始终置顶的小窗口，实时显示 Claude Code 的当前状态（空闲、思考中、执行中、等待确认、完成、出错），无需看命令行就能一眼掌握进度。
 
 ![Status](https://img.shields.io/badge/status-active-success)
 ![Platform](https://img.shields.io/badge/platform-windows-blue)
